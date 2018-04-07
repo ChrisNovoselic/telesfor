@@ -1,0 +1,355 @@
+// import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
+import QtQuick 1.1
+
+import "."
+import "hcouch.js" as ScriptHCouchDB
+
+Column {
+    id: columnStatistic
+    spacing: 6
+
+//    x: ScriptCvCapture.posXItem (0, 0)
+    width: widthManagmentArea
+
+    anchors.left: parent.left
+    anchors.leftMargin: global_offset
+    anchors.top: columnTreadmill.bottom
+    anchors.topMargin: global_offset
+
+    function hideButtonsReport () { btnReport.checked = false }
+
+    function setIdTrainingResult (id) {
+        if (! (id === undefined))
+            btnReportTraining.idTrainingResult = id
+        else
+            ;
+
+        console.debug ("HColumnStatistic::setIdTrainingResult id =", btnReportTraining.idTrainingResult)
+    }
+
+    //Строка - описание
+    Row {
+        parent: columnStatistic
+        width: parent.width
+        height: heightControl
+        Text {
+            y: parent.height / 2 - height / 2
+            text: "Статистика"
+            font {
+                pixelSize: Math.round (parent.width * 0.1)
+            }
+        }
+    }
+    //Строка Кнопка отчЁты
+    Row {
+        id: rowButtonReport
+
+        width: parent.width
+        height: heightControl
+
+        enabled: ! columnTraining.getButtonTrainingRun ().checked
+
+        HButton {
+            id: btnReport
+            objectName: "btnReport"
+            parent: rowButtonReport
+            width: parent.width
+            height: heightControl
+            textUnchecked: "Отчёты"
+            textChecked: "Отчёты"
+
+            colorUncheked: "black"
+            colorChecked: "#ffffff"
+
+            colorTextUnchecked: "white"
+            colorTextChecked: "black"
+
+            checked: false
+            checkable: true
+
+            onClicked: {
+            }
+
+            onCheckedChanged: {
+                if (checked) {
+                    columnTraining.hidePopupWindow ()
+                }
+                else
+                    ;
+            }
+
+            onEnabledChanged: {
+                if (! enabled)
+                    checked = false
+                else
+                    ;
+            }
+        }
+    }
+    //Строка Кнопка отчЁты - по пациенту
+    Row {
+        id: rowButtonReportPatient
+
+        width: parent.width
+        height: heightControl
+
+        visible: btnReport.checked
+
+        HButton {
+            id: btnReportPatient
+            objectName: "btnReportPatient"
+            parent: rowButtonReportPatient
+            width: parent.width
+            height: heightControl
+            textUnchecked: "По пациенту"
+
+            colorUncheked: "black"
+            colorChecked: "#ffffff"
+
+            colorTextUnchecked: "white"
+            colorTextChecked: "black"
+
+            checked: false
+            checkable: false
+
+            onClicked: {
+            }
+        }
+    }
+    //Строка Кнопка отчЁты - по тренировке
+    Row {
+        id: rowButtonReportTraining
+
+        width: parent.width
+        height: heightControl
+
+        visible: btnReport.checked
+
+        HButton {
+            id: btnReportTraining
+            objectName: "btnReportTraining"
+            parent: rowButtonReportTraining
+
+            property string idTrainingResult: ""
+
+            width: parent.width
+            height: heightControl
+            textUnchecked: "По тренировке"
+
+            colorUncheked: "black"
+            colorChecked: "#ffffff"
+
+            colorTextUnchecked: "white"
+            colorTextChecked: "black"
+
+            enabled: idTrainingResult === "" ? false : true
+
+            checked: false
+            checkable: false
+
+            onClicked: {
+                var trainingJSON, pulseJSON, content,
+                    middlePulse = 0, measurement = 0
+                function getTemplate (responseText) {
+                    console.debug ("HColumnStatistic::rowButtonReportTraining::onClicked::getTemplate () = ", responseText)
+
+                    if (! (JSON.parse (responseText) ['rows'] === undefined)) {
+                        content = JSON.parse (responseText) ['rows'] ['0'] ['value'] ['content']
+
+                        var idValue = 'patientLastName'
+                        var pos = content.indexOf (idValue)
+
+                    }
+                    else
+                        ;
+                }
+
+                function getPulse (responseText) {
+                    console.debug ("HColumnStatistic::rowButtonReportTraining::onClicked::getPulse () = ", responseText)
+
+                    if (! (JSON.parse (responseText) ['rows'] === undefined)) {
+                        pulseJSON = JSON.parse (responseText) ['rows'] ['0'] ['value']
+
+                        while (pulseJSON ['pulse'] [measurement.toString ()] === undefined) {
+                            middlePulse += pulseJSON ['pulse'] [measurement.toString ()]
+                            measurement ++
+                        }
+
+                        middlePulse /= measurement
+
+                        ScriptHCouchDB.viewCouchdb (nameDB, typeContent, 'reports', 'training', getTemplate)
+                    }
+                    else
+                        ;
+                }
+
+                function getTraining (responseText) {
+                    console.debug ("HColumnStatistic::rowButtonReportTraining::onClicked::getTraining () = ", responseText)
+
+                    if (! (JSON.parse (responseText) ['rows'] === undefined)) {
+                        trainingJSON = JSON.parse (responseText) ['rows'] ['0'] ['value']
+
+                        console.debug (JSON.stringify (trainingJSON ['dttm'] ['start'] ['']), trainingJSON ['dttm'] ['end'])
+                        var dtStart = new Date (trainingJSON ['dttm'] ['start'] ['']), dtEnd = new Date (trainingJSON ['dttm'] ['end'] [''])
+                        console.debug ((dtEnd - dtStart).toString ())
+
+                        //ScriptHCouchDB.viewCouchdb (nameDB, typeContent, 'pulses', 'pulse', getPulse, idTrainingResult)
+                    }
+                    else
+                        ;
+                }
+
+                ScriptHCouchDB.viewCouchdb (nameDB, typeContent, 'trainings', 'training', getTraining, idTrainingResult)
+            }
+        }
+    }
+    //Строка ПУЛЬС
+    Row {
+        id: rowPulse
+
+        width: parent.width
+        height: heightControl
+
+//        enabled: checkBoxCameraBase.checked || checkBoxCameraFace.checked
+        enabled: true
+
+        Text {
+            parent: rowPulse
+            y: parent.height / 2 - height / 2
+            width: parent.width * 4 * coeffWidthControl
+
+            text: "Пульс"
+            font.pixelSize: Math.round (parent.width * 0.08)
+        }
+
+        Text {
+            parent: rowPulse
+
+            y: parent.height / 2 - height / 2
+            width: parent.width * 2 * coeffWidthControl
+
+            text: textPulseVal.toFixed (2)
+            font.pixelSize: Math.round (parent.width * 0.08)
+
+            horizontalAlignment: Text.AlignRight
+            verticalAlignment: Text.AlignVCenter
+        }
+    }
+
+    //Строка ВРЕМя от НАЧАЛа тренировки
+    Row {
+        id: rowTraining
+
+        width: parent.width
+        height: heightControl
+
+//            enabled: checkBoxCameraBase.checked || checkBoxCameraFace.checked
+        enabled: true
+
+        Text {
+            parent: rowTraining
+
+            y: parent.height / 2 - height / 2
+            width: parent.width * 4 * coeffWidthControl
+
+            text: "Время"
+            font.pixelSize: Math.round (parent.width * 0.08)
+        }
+
+        Text {
+            parent: rowTraining
+
+            y: parent.height / 2 - height / 2
+            width: parent.width * 2 * coeffWidthControl
+
+//            text: textTrainingTimeVal
+            text: {
+                var tm = new Date (), val
+                val = sliderPreviousTime + sliderCurrentTime
+                tm.setSeconds (val % 60)
+                tm.setMinutes (val / 60)
+                Qt.formatTime(tm, "mm:ss")
+            }
+
+            font.pixelSize: Math.round (parent.width * 0.08)
+            horizontalAlignment: Text.AlignRight
+            verticalAlignment: Text.AlignVCenter
+        }
+    }
+
+    //Строка ДИСТАНЦИя от НАЧАЛа тренировки
+    Row {
+        id: rowDistance
+
+        width: parent.width
+        height: heightControl
+
+//            enabled: checkBoxCameraBase.checked || checkBoxCameraFace.checked
+        enabled: true
+
+        Text {
+            parent: rowDistance
+
+            y: parent.height / 2 - height / 2
+            width: parent.width * 4 * coeffWidthControl
+
+            text: "Дистанция"
+            font.pixelSize: Math.round (parent.width * 0.08)
+        }
+
+        Text {
+            parent: rowDistance
+
+            y: parent.height / 2 - height / 2
+            width: parent.width * 2 * coeffWidthControl
+
+            text: sliderCurrentDistance.toFixed (3)
+            font.pixelSize: Math.round (parent.width * 0.08)
+
+            horizontalAlignment: Text.AlignRight
+            verticalAlignment: Text.AlignVCenter
+        }
+    }
+
+    //Строка ВРЕМя РЕАЛьНОе чч:мм:сс
+    Row {
+        id: rowRealTime
+
+        width: parent.width
+        height: heightControl
+
+//            enabled: checkBoxCameraBase.checked || checkBoxCameraFace.checked
+        enabled: true
+
+        Text {
+            parent: rowRealTime
+
+            y: parent.height / 2 - height / 2
+            width: parent.width * 4 * coeffWidthControl
+
+            text: "Реальн.вр."
+            font.pixelSize: Math.round (parent.width * 0.08)
+        }
+
+        Text {
+            parent: rowRealTime
+
+            y: parent.height / 2 - height / 2
+            width: parent.width * 2 * coeffWidthControl
+
+//            text: textTrainingTimeVal
+            text: {
+                var tm = new Date ()
+                tm.setHours (sliderRealTime / 60 / 24)
+                tm.setMinutes (sliderRealTime / 60)
+                tm.setSeconds (sliderRealTime % 60)
+
+                Qt.formatTime(tm, "hh:mm:ss")
+            }
+            font.pixelSize: Math.round (parent.width * 0.08)
+
+            horizontalAlignment: Text.AlignRight
+            verticalAlignment: Text.AlignVCenter
+        }
+    }
+}

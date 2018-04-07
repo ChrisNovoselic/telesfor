@@ -1,0 +1,604 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>572</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Управление тренажёром</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QGroupBox" name="groupBoxAbsolutePath">
+    <property name="geometry">
+     <rect>
+      <x>5</x>
+      <y>0</y>
+      <width>381</width>
+      <height>331</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Файл для устройства управления</string>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
+    </property>
+    <widget class="QRadioButton" name="radioButtonSelectDir">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>20</y>
+       <width>280</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Указать директорию с файлами</string>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="radioButtonSelectFile">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>100</y>
+       <width>280</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Указать файл</string>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButtonAbsolutePath">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>120</y>
+       <width>80</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Путь...</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEditAbsolutePath">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>120</y>
+       <width>290</width>
+       <height>28</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="spinBoxIteratorFiles">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>70</y>
+       <width>45</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>66</number>
+     </property>
+     <property name="singleStep">
+      <number>1</number>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButtonFindFile">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>70</y>
+       <width>80</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Найти...</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButtonAddPrefixFile">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>70</y>
+       <width>50</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Ещё...</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>40</y>
+       <width>380</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Префикс(ы) для формирования имени файла</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBoxPrefix1">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>70</y>
+       <width>60</width>
+       <height>28</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelFile">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>150</y>
+       <width>380</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Файл не доступен для записи...</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="radioButtoUSB">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>180</y>
+       <width>280</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Указать устройство USB</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelNumberUSB">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>210</y>
+       <width>141</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Номер устройства:</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="spinBoxIteratorNumberDevice">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>210</y>
+       <width>40</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>66</number>
+     </property>
+     <property name="singleStep">
+      <number>1</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelNumberDeviceDesc">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>260</y>
+       <width>130</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Класс устройства:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelVendorIDDesc">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>285</y>
+       <width>130</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>VendorID:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelProductIDDesc">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>310</y>
+       <width>130</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>ProductID:</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="spinBoxIteratorNumberInterface">
+     <property name="geometry">
+      <rect>
+       <x>340</x>
+       <y>210</y>
+       <width>40</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>66</number>
+     </property>
+     <property name="singleStep">
+      <number>1</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelNumberInterfaceDesc">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>210</y>
+       <width>141</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Номер интерфейса:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelNumberEPDesc">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>260</y>
+       <width>141</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Номер EP:</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="spinBoxIteratorNumberEP">
+     <property name="geometry">
+      <rect>
+       <x>340</x>
+       <y>260</y>
+       <width>40</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>66</number>
+     </property>
+     <property name="singleStep">
+      <number>1</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelAdresEPDesc">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>310</y>
+       <width>130</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Адрес EP:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelTypeEPDesc">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>285</y>
+       <width>130</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Тип EP:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelProductID">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>310</y>
+       <width>40</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelVendorID">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>285</y>
+       <width>40</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelClassDevice">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>260</y>
+       <width>40</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelTypeEP">
+     <property name="geometry">
+      <rect>
+       <x>340</x>
+       <y>285</y>
+       <width>40</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelAdresEP">
+     <property name="geometry">
+      <rect>
+       <x>340</x>
+       <y>310</y>
+       <width>40</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelNumberSetinngsDesc">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>235</y>
+       <width>141</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Номер настроек:</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="spinBoxIteratorNumberSetinngs">
+     <property name="geometry">
+      <rect>
+       <x>340</x>
+       <y>235</y>
+       <width>40</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>66</number>
+     </property>
+     <property name="singleStep">
+      <number>1</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelNumberBus">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>235</y>
+       <width>40</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelNumberBusDesc">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>235</y>
+       <width>130</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Номер шины:</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBoxCommand">
+    <property name="geometry">
+     <rect>
+      <x>5</x>
+      <y>360</y>
+      <width>391</width>
+      <height>171</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Выполение команды</string>
+    </property>
+    <widget class="QSpinBox" name="spinBoxCommandParametr">
+     <property name="geometry">
+      <rect>
+       <x>320</x>
+       <y>30</y>
+       <width>70</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>66</number>
+     </property>
+     <property name="singleStep">
+      <number>0</number>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBoxTypeManagement">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>30</y>
+       <width>150</width>
+       <height>28</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBoxCommand">
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>30</y>
+       <width>150</width>
+       <height>28</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButtonRun">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>70</y>
+       <width>100</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::WheelFocus</enum>
+     </property>
+     <property name="text">
+      <string>Выполнить</string>
+     </property>
+    </widget>
+    <widget class="QTextEdit" name="textEditCommands">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>70</y>
+       <width>280</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButtonExit">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>140</y>
+       <width>100</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::WheelFocus</enum>
+     </property>
+     <property name="text">
+      <string>Выход</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEditCommand">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>140</y>
+       <width>280</width>
+       <height>28</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="Line" name="line">
+    <property name="geometry">
+     <rect>
+      <x>5</x>
+      <y>340</y>
+      <width>390</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>400</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

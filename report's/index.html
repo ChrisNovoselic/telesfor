@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//RU"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+<head>
+
+<title>Отчёт по пациенту</title>
+<style type="text/css">
+body {
+	font-family:verdana,arial,sans-serif;
+	font-size:10pt;
+	margin:30px;
+	background-color:#fff;
+	}
+</style>
+</head>
+<script>
+function loadPage () {
+var i , inner = '', arTemp = ['Первый', 'Втиорой', 'Третий'], months = ['январь', 'февраль',
+									"март", "апрель", 'май',
+									'июнь', 'июль', 'август',
+									'сентябрь', 'октябрь', 'ноябрь',
+									'декабрь']
+	for (i = 0; i < arTemp.length; i ++) {
+		inner += '<option value="' + arTemp [i] + '">' + arTemp [i] + '</option>' + '\n'
+	}
+	//document.getElementById ('idSelectPatient').innerHTML = inner
+	document ['formPatient'] ['idSelectPatient'].innerHTML = inner
+
+	for (i = 1; i < 31; i ++) {
+		document ['formPatient'] ['idSelectStartDay'].innerHTML += '<option value="' + i + '">' + i + '</option>' + '\n'
+		document ['formPatient'] ['idSelectEndDay'].innerHTML += '<option value="' + i + '">' + i + '</option>' + '\n'
+	}
+
+	for (i = 0; i < months.length; i ++) {
+		document ['formPatient'] ['idSelectStartMonth'].innerHTML += '<option value="' + i + '">' + months [i] + '</option>' + '\n'
+		document ['formPatient'] ['idSelectEndMonth'].innerHTML += '<option value="' + i + '">' + months [i] + '</option>' + '\n'
+	}
+
+	for (i = 2012; i < 2020; i ++) {
+		document ['formPatient'] ['idSelectStartYear'].innerHTML += '<option value="' + i + '">' + i + '</option>' + '\n'
+		document ['formPatient'] ['idSelectEndYear'].innerHTML += '<option value="' + i + '">' + i + '</option>' + '\n'
+	}
+}
+</script>
+<body onload='loadPage ()'>
+<form name='formPatient'>
+<h1><center>Отчёт</center></h1>
+<h2><center>по тренировкам для</center></h2>
+<div><center>
+<select id='idSelectPatient' name='selectPatient' size='1' style="text-align:left;background:#eee; width:50%;"></select>
+</center></div>
+<table align='center' width='50%'>
+  	<tr>
+    		<td>начиная с</td>
+		<td><select id='idSelectStartDay'></select></td>
+		<td width='1%'></td>
+		<td><select id='idSelectStartMonth'></select></td>
+		<td width='1%'></td>
+		<td><select id='idSelectStartYear'></select></td>
+		<td width='1%'></td>
+		<td>по</td>
+		<td><select id='idSelectEndDay'></select></td>
+		<td width='1%'></td>
+		<td><select id='idSelectEndMonth'></select></td>
+		<td width='1%'></td>
+		<td><select id='idSelectEndYear'></select></td>
+		<td width='1%'></td>
+	</tr>
+</table>
+</form>
+</body>
+</html>
